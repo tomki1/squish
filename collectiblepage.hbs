@@ -1,0 +1,138 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        
+        {{#each collectible}}
+
+            <div class="collectible-heading">
+                <h4>{{{name}}}</h4>
+                <p>Collectible id: {{{collectible_id}}}</p>
+                <hr/>
+            </div>
+
+            <br/>
+        
+            <div class="collectible-image">
+                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}}/></td>	
+
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="collectible-attributes">
+                <td><b>Type:</b> {{{type_name}}}</td>
+                <br/>
+                {{#if year_released}}      
+                    <td><b>Year Released:</b> {{{year_released}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if squad}}      
+                    <td><b>Squad:</b> {{{squad}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if sizes}}      
+                    <td><b>Size:</b> {{{sizes}}}</td>
+                    <br/>
+                {{/if}}
+            </div>    
+        {{/each}}
+
+        <br/>
+
+    {{#if somethingInCollection}}
+        <div class="collection">
+            <h5>Your collection:</h5>
+            <form action="/collectible/{{id}}" method="post" class="form-example">
+                {{#each collectionHas}}
+                    <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                    <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                    <input type="number" step="1" min="0" max="20"
+                    name="has_quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                    {{!-- https://stackoverflow.com/questions/7967075/regex-for-not-empty-and-not-whitespace --}}
+                    <input type="number" step="1" min="0" max="20"
+                    name="wants_quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                    <input type="number" step="1" min="0" max="20"
+                    name="willing_to_trade_quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    <br>
+                    <input type="submit" class="btn btn-secondary" value="Update Collection">
+                    <script> $("#contact-form").submit(_=> alert("You have successfully submitted"));</script>
+                {{/each}}
+            </form>
+        </div>
+        <br/>   
+    {{else if nothingInCollection}}
+            <div class="collection">
+            <h5>Your collection:</h5>
+            <form action="/collectible/{{id}}" method="post" class="form-example">
+                    <input type="hidden" name="collectible_id" id="collectible_id" value="{{{id}}}" readonly>
+                    <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                    <input type="number" step="1" min="0" max="20"
+                    name="has_quantity" id="qa" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*"inputmode="" required>
+                    <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                    <input type="number" step="1" min="0" max="20"
+                    name="wants_quantity" id="qb" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                    <input type="number" step="1" min="0" max="20"
+                    name="willing_to_trade_quantity" id="qc" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    <br>
+                    <input type="submit" class="btn btn-secondary" value="Update Collection">
+            </form>
+        </div>
+        <br/>   
+    {{/if}}
+
+        
+
+        <div class="for-trade">
+            <h5>Collectors who have this item for trade:</h5>
+            {{#if signInToViewTrades}}
+            <p><a href="/login">Login</a> to view collectors who have this for trade.</p>
+            {{else}}
+             {{#if existsUserWithCollectible}}
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectors</th>
+                </thead>
+                <tbody>
+                    {{#each usersWithCollectible}}
+                        <tr>
+                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>There are no collectors who have this item for trade</p>
+            {{/if}}
+            {{/if}}
+        </div>
+            <h5>Collectors who want this item:</h5>
+            {{#if signInToViewTrades}}
+            <p><a href="/login">Login</a> to view collectors who have this for trade.</p>
+            {{else}}
+             {{#if usersWantCollectible}}
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectors</th>
+                </thead>
+                <tbody>
+                    {{#each usersWantCollectible}}
+                        <tr>
+                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>There are no collectors who want this item.</p>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
+<link rel="stylesheet" href="/css/collectiblepage.css"/>

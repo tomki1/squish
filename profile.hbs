@@ -1,0 +1,341 @@
+<div class="row justify-content-md-center mt-2">
+    
+    <div class="col col-md-4">
+        {{#each collector}}
+        <h2 class="display-4">{{{username}}}</h2>
+        <h5>collector id: {{{collector_id}}}</h5>
+{{!--         <h5>admin status: {{{is_admin}}}</h5>
+ --}}        {{!-- <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span> --}}
+        {{/each}}
+        <div id="pageCountHas" style="display: none;">{{{pageCountHas}}}</div>
+        <div id="pageCountWants" style="display: none;">{{{pageCountWants}}}</div>
+        <div id="pageCountTrade" style="display: none;">{{{pageCountTrade}}}</div>
+        <br>
+        <span><a href="/collector/rating/{{{collector_id}}}">Rating</a>:</span>
+        {{#if noRating}}
+        <span>no ratings received</span>
+        {{/if}} 
+        {{#if zeroStar}}
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if halfStar}}
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if oneStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        {{/if}}
+        {{#if oneHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if twoStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if twoHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if threeStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}        
+        {{#if threeHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if fourStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if fourHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        {{/if}}        
+        {{#if fiveStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>        
+        <span class="fa fa-star"></span>
+        {{/if}}
+        <br>
+        <br>
+        {{#if unread}}
+        <span><i class="fas fa-envelope"></i><a href="/messages"> Inbox</a>: </span>
+        <span style="background-color: #FFFF00">You have <b>{{unreadNumber}}</b> unread message(s)</span>
+        {{else}}
+        <span><i class="fas fa-envelope"></i><a href="/messages"> Inbox</a>: You have no unread messages</span>       
+        {{/if}}
+        <br>
+        <hr/>
+        
+        <form action="/profile/publictoggle" method="post" class="form-example"> 
+        <div class="parent">             
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your have list?</p>
+                    {{#if showHasPublic}}
+                    <input type="radio" id="yes" name="has_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="has_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="has_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="has_public" value="false" checked>
+                    <label for="no">No</label>
+                    {{/if}}
+                </td>
+            </div> 
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your want list?</p>
+                    {{#if showWantsPublic}}
+                    <input type="radio" id="yes" name="wants_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="wants_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="wants_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="wants_public" value="false" checked>
+                    <label for="no">No</label>           
+                    {{/if}}
+                </td>
+            </div>
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your trade list?</p>
+                    {{#if showTradesPublic}}
+                    <input type="radio" id="yes" name="trades_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="trades_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false" checked>
+                    <label for="no">No</label>
+                    {{/if}}
+                </td>
+            </div> 
+        </div>
+    </div>
+    <div class="col col-md-4">
+        <div class="parent">
+            <div class='child float-left-child3'>
+                <input type="submit" class="btn btn-secondary" value="Update preferences">
+                </form> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="col col-md-4">
+        <hr/>
+        <p><a href="/profile/list"><h5>click here to view your checklist as a sortable table</h5></a></p>
+        <p><i class="fas fa-check"></i> : <a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-heart"></i> : <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <i class='fas fa-people-arrows'></i> : <a href="#trade">for trade</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#match">matches</a></p>
+        <p>You own {{{hasTotal}}} out of {{{collectiblesTotal}}} Pusheens!</p>
+    </div>
+
+{{!--     <div class="col col-md-4">
+        <h6>Filter</h6>
+        <form method="GET" action="/profile" id="filter-form">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="plushFilter" name="filter" value="Plush">
+                <label class="form-check-label" for="plushFilter">Plush</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pinFilter" name="filter" value="Pin">
+                <label class="form-check-label" for="pinFilter">Pin</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="figureFilter" name="filter" value="Figure">
+                <label class="form-check-label" for="figureFilter">Figure</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="accessoryFilter" name="filter" value="Accessory">
+                <label class="form-check-label" for="accessoryFilter">Accessory</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="otherFilter" name="filter" value="Other">
+                <label class="form-check-label" for="otherFilter">Other</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a class="btn btn-light" href="/profile" role="button">Reset</a>
+        </form>
+    </div> --}}
+    <div id="have" class="col col-md-4 heading"><h3 class="display-4">Have List</h3></div>
+        <div class="col col-md-4">
+            {{#each collectionHas}}
+            <div class="parent">
+                <div class='child float-left-child'>
+                    <td>
+                        <form action="/profile/has" id="update_hasform" method="post" class="form-example"> 
+                            <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
+                            <img src=/collectible/image/{{{collectible_id}}}/>
+                            <br>
+                            <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+            {{#if showHasButton}}
+                <button type="submit" id="update_has" class="btn btn-secondary">Update collection in have list</button>
+            {{else}}
+                <p>You have nothing in your have list</p>
+            {{/if}}
+            <div class="col col-md-4">
+            <p>Please click "update collection" before moving on to the next page or your changes will not be saved.</p>
+            <div class="pagination" id="paginationHas"></div>
+
+            </div>
+
+    </form>   
+
+    <div id="want" class="col col-md-4 heading"><h3 class="display-4">Want List</h3></div>
+        <div class="col col-md-4">
+            {{#each collectionWants}}
+            <div class="parent">
+                <div class='child float-left-child'>
+                    <td>
+                        <form action="/profile/wants" id="update_wantsform" method="post" class="form-example"> 
+                            <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
+                            <img src=/collectible/image/{{{collectible_id}}}/>
+                            <br>
+                            <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+            {{#if showWantsButton}}
+                <button type="submit" id="update_wants" class="btn btn-secondary">Update collection in want list</button>
+            {{else}}
+                <p>You have nothing in your want list</p>
+            {{/if}}
+            <div class="col col-md-4">
+            <p>Please click "update collection" before moving on to the next page or your changes will not be saved.</p>
+            <div class="pagination" id="paginationWants"></div>
+
+            </div>
+    </form>   
+
+    <div id="trade" class="col col-md-4 heading"><h3 class="display-4">For Trade List</h3></div>
+        <div class="col col-md-4">
+            {{#each collectionWillingToTrade}}
+            <div class="parent">             
+                <div class='child float-left-child'>
+                    <td>
+                        <form action="/profile/trades" id="update_tradeform" method="post" class="form-example"> 
+                            <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
+                            <img src=/collectible/image/{{{collectible_id}}}/>
+                            <br>
+                            <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="20"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+            {{#if showTradeButton}}
+                <button type="submit" id="update_trade" class="btn btn-secondary">Update collection in trade list</button>
+            {{else}}
+                <p>You have nothing in your trade list</p>
+            {{/if}}
+            <div class="col col-md-4">
+            <p>Please click "update collection" before moving on to the next page or your changes will not be saved.</p>
+            <div class="pagination" id="paginationTrade"></div>
+            </div>
+    </form>   
+      
+    <div id="match" class="col col-md-4 heading"><h3 class="display-4">Trade Matches</h3></div>
+        <div class="col col-md-4">
+        {{#each matches}}
+            <div class="parent">
+                <div class='child float-left-child'>
+                    <td>
+                        <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <p class="small">{{{typeName}}}</p>
+                        <img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
+                        <br><a href="/collector/trade/images/{{{collector_id}}}">{{{username}}}</a> has
+                        <br>{{{willing_to_trade_quantity}}} for trade.
+                    </td>
+                </div> 
+                {{/each}}
+            </div>
+            {{#if noMatches}}
+                <p>You have no trade matches</p>
+            {{/if}}
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/profile.css"/>
+<link rel="stylesheet" href="/css/loading.css"/>
+<script src="/js/loading.js"></script>
+<script src="/js/paginationprofile.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{!-- this needs to be here for the half stars and empty stars --}}

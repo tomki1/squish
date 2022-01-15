@@ -1,0 +1,67 @@
+  <div class="row justify-content-md-center mt-2">
+    <div class="col col-md-4">
+        <h2>Register</h2>
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                    {{message}}
+            </div>
+        {{/if}}
+        <form id="register_collector" action="/auth/register" method="POST">
+              <div id="ifYes" style="display:block"> 
+        <div style="display:none" class="form-example">
+            <label for="db">Sign up as Admin?</label>
+                <select name="is_admin" id="is_admin" required>
+                    <option value="0" id="def" selected="1">No</option>
+                    <type="hidden" option value="6">Yes</option>
+            </select>
+            </script>    
+            <div id="allpromos" name="allpromos" style="display:none;">
+                <label for="allpromos">Admin Code:</label>
+                <input type="text" id="allpromos" name="allpromos" title="Invalid Code" size="4">
+            </div>  
+        </div>
+        <script>
+                $('#is_admin').on('change',function(){
+                    if( $(this).val()==="0"){
+                        $("#allpromos").hide()
+                    }
+                    else{
+                        $("#allpromos").show()
+                    }
+                });            
+        </script>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <small id="usernameHelp" class="form-text text-muted mb-1"> Must be between 3-25 characters long. Your name will be displayed to other users.</small>
+                <input type="text" class="form-control"  name="username" id="username" value="{{inputtedUsername}}" placeholder="First Name Last Name" minlength="3" maxlength="28" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control"  name="email" id="email" value="{{inputtedEmail}}" maxlength="128" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <small id="passwordHelp" class="form-text text-muted mb-1">Must contain at least: one uppercase letter, one lowercase letter, one number. Must be 8 or more characters in length.</small>
+                <input type="password" id="password" class="form-control"  name="password" title="Passwords do not match" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onchange="form.password2.pattern = RegExp.escape(this.value);" required>
+                <label for="password">Confirm Password</label>
+                <input type="password"  id="password2" class="form-control" placeholder="Confirm Password" name="password2" title="Passwords do not match" required />
+            </div>
+        <script type="text/javascript">
+            //https://www.the-art-of-web.com/javascript/validate-password/
+            // polyfill for RegExp.escape
+            if(!RegExp.escape) {
+                RegExp.escape = function(s) {
+                return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+                };
+            }
+        </script>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Register" name="register">
+            </div>
+        </form>
+        <hr/>
+        <p class="text-muted">Already registered? Login <a href="/login">here</a>.</p>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/shared.js"></script>

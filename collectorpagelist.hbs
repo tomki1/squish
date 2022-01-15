@@ -1,0 +1,248 @@
+<div class="row justify-content-md-center mt-2">
+    
+    <div class="col col-md-4">
+        {{#each collector}}
+        <h2 class="display-4">{{{username}}}</h2>
+        <h5>collector id: {{{collector_id}}}</h5>
+        {{/each}}
+        {{#if isAuthenticated}}
+        {{#each collector}}
+        {{!-- <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a></span> --}}
+        {{/each}}
+        {{/if}}
+        <br>
+        <span>Rating:</span>
+        {{#if noRating}}
+        <span>no ratings received</span>
+        {{/if}} 
+        {{#if zeroStar}}
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if halfStar}}
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if oneStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        {{/if}}
+        {{#if oneHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if twoStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if twoHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if threeStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}        
+        {{#if threeHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if fourStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if fourHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        {{/if}}        
+        {{#if fiveStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>        
+        <span class="fa fa-star"></span>
+        {{/if}}
+        <br>
+        {{#if isLoggedInUser}}
+        <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
+        {{else if isAuthenticated}}
+        <span><a href="/collector/rating/{{{collector_id}}}">give or view ratings</a></span>
+        <br>
+        <br>
+        <span><i class="fas fa-envelope"></i> <a href="/messages/{{{collector_id}}}">send user a message</a></span>
+
+        {{else}}
+        <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
+        {{/if}}
+        <hr/>
+    </div>
+    
+    <div class="col col-md-4">
+        {{#if isLoggedInUser}}
+        {{else}}
+            {{#if isAuthenticated}}
+                <h3><a href="/collector/trade/{{{collector_id}}}">Trade Matches</a></h3>
+            {{/if}}
+        {{/if}}
+        <p><a href="/collector/{{{collector_id}}}"><h5>click here to view checklist as image thumbnails only</h5></a></p>       
+        <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
+        <p>Click on the table headers to sort the collectibles by the clicked column. You may sort by name, type, year, squad, and size.</p>
+    </div>
+    {{!-- <div class="col col-md-4">
+        <h6>Filter</h6>
+        <form method="GET" action="/collector/list/{{{collector_id}}}" id="filter-form">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="plushFilter" name="filter" value="Plush">
+                <label class="form-check-label" for="plushFilter">Plush</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pinFilter" name="filter" value="Pin">
+                <label class="form-check-label" for="pinFilter">Pin</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="figureFilter" name="filter" value="Figure">
+                <label class="form-check-label" for="figureFilter">Figure</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="accessoryFilter" name="filter" value="Accessory">
+                <label class="form-check-label" for="accessoryFilter">Accessory</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="otherFilter" name="filter" value="Other">
+                <label class="form-check-label" for="otherFilter">Other</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a class="btn btn-light" href="/collector/list/{{{collector_id}}}" role="button">Reset</a>
+        </form>
+    </div> --}}
+    <div id="have" class="col col-md-4 heading"><h3 class="display-4">{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
+        {{#if showHasPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <th width="600px">Collectible</th>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th>Year Released</th>
+                    <th>Squad</th>
+                    <th>Size</th>
+                </tr>
+                {{#each collectionHas}}
+                <tr>
+                    <td style="word-break: break-word;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td><img src=/collectible/image/{{{collectible_id}}}/></td>	      
+                    <td>{{{typeName}}}</td>
+                    <td>{{{year_released}}}</td>    
+                    <td>{{{squad}}}</td>          
+                    <td>{{{sizes}}}</td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+        {{#if showHas}}
+        {{else}}
+            <p>This collector has nothing in their have list</p>
+        {{/if}}
+        {{else}}
+            <p>This collector's have list is private</p>
+        {{/if}}
+
+    <div id="want" class="col col-md-4 heading"><h3 class="display-4">{{#each collector}}{{{username}}}{{/each}}'s Want List</h3></div>
+        {{#if showWantsPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <th width="600px">Collectible</th>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th>Year Released</th>
+                    <th>Squad</th>
+                    <th>Size</th>                    
+                </tr>
+                {{#each collectionWants}}
+                <tr>
+                    <td style="word-break: break-word;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td><img src=/collectible/image/{{{collectible_id}}}/></td>	      
+                    <td>{{{typeName}}}</td>
+                    <td>{{{year_released}}}</td>    
+                    <td>{{{squad}}}</td>          
+                    <td>{{{sizes}}}</td>                    
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+        {{#if showWants}}
+        {{else}}
+            <p>This collector has nothing in their want list</p>
+        {{/if}}  
+        {{else}}
+            <p>This collector's want list is private</p>
+        {{/if}}
+
+    <div id="trade" class="col col-md-4 heading"><h3 class="display-4">{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
+        {{#if showTradesPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <th width="600px">Collectible</th>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th>Year Released</th>
+                    <th>Squad</th>
+                    <th>Size</th>
+                </tr>
+                {{#each collectionWillingToTrade}}
+                <tr>
+                    <td style="word-break: break-word;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td><img src=/collectible/image/{{{collectible_id}}}/></td>	      
+                    <td>{{{typeName}}}</td>
+                    <td>{{{year_released}}}</td>    
+                    <td>{{{squad}}}</td>          
+                    <td>{{{sizes}}}</td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+            {{#if showTrade}}
+            {{else}}
+                <p>This collector has nothing in their trade list</p>
+            {{/if}}
+            {{else}}
+            <p>This collector's trade list is private</p>
+            {{/if}}
+
+</div>
+
+<link rel="stylesheet" href="/css/collectorpagelist.css"/>
+<script src="/js/sortTable.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{!-- this needs to be here for the half stars and empty stars --}}

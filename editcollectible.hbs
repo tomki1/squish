@@ -1,0 +1,93 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        <h2>Edit an existing collectible</h2>
+        <p>Collectible id and at least one other field are required.  Fields left blank will not be updated.</p>
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+
+        <form id="edit_collectible" action="/edit-collectible" enctype="multipart/form-data" method="POST">
+
+            <div class="form-group">
+                <label for="collectible_id">Collectible id (required): </label>
+                <input class="form-control" type="number" name="collectible_id" id="collectible_id" value="{{thisCollectible.collectible_id}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" id="name" pattern="([a-zA-Z0-9]+[a-zA-Z0-9 ]+)" placeholder="alphanumeric characters only and 2-40 characters long" value="{{thisCollectible.name}}" maxlength="40">
+            </div>
+
+            <div class="form-group">
+                <label for="collectible_id">Type: </label>
+                <select id='option_type' class="form-control" name="collectible_type">
+                    <option value="0">select type to update type and attributes</option>
+                    {{#if selectPlush}}                              
+                    <option value="1" selected>Plush</option>
+                    {{else}}
+                    <option value="1">Plush</option>                    
+                    {{/if}}
+                    {{#if selectPin}}                    
+                    <option value="2" selected>Pin</option>
+                    {{else}}
+                    <option value="2">Pin</option>
+                    {{/if}}
+                    {{#if selectFigure}}
+                    <option value="3" selected>Figure</option>
+                    {{else}}
+                    <option value="3">Figure</option>
+                    {{/if}}
+                    {{#if selectAccessory}}
+                    <option value="4" selected>Accessory</option>
+                    {{else}}
+                    <option value="4">Accessory</option>
+                    {{/if}}
+                    {{#if selectOther}}
+                    <option value="5" selected>Other</option>
+                    {{else}}
+                    <option value="5">Other</option>
+                    {{/if}}
+                </select>
+            </div>
+
+            {{!--None --}}
+            <div class="form-group none box" id='none'>
+            </div>
+
+            {{!-- Plush --}}
+            <div>
+                
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out.</p>
+                <label for="year_released">Year Released</label>
+                <input class="form-control" type="text" name="year_released" id="year_released" value="{{thisCollectible.year_released}}" maxlength="40"/>
+                <label for="squad">Squad</label>
+                <input class="form-control" type="text" name="squad" id="squad" value="{{thisCollectible.squad}}" maxlength="40"/>
+                <label for="sizes">Sizes</label>
+                <input class="form-control" type="text" name="sizes" id="sizes" value="{{thisCollectible.sizes}}" maxlength="40"/>
+                <label for="collector_number">Collector Number</label>
+                <input class="form-control" type="text" name="collector_number" id="collector_number" value="{{thisCollectible.collector_number}}" maxlength="40"/>
+                <label for="color">Color</label>
+                <input class="form-control" type="text" name="color" id="color" value="{{thisCollectible.color}}" maxlength="40"/>     
+                <label for="color">Squishdate</label>
+                <input class="form-control" type="text" name="squishdate" id="squishdate" value="{{thisCollectible.squishdate}}" maxlength="40"/>         
+                 <label for="color">Description</label>
+                <input class="form-control" type="text" name="description" id="description" value="{{thisCollectible.description}}" maxlength="40"/>                                     
+            </div>
+
+            <div class="form-group">
+                <p class="text-muted">Select a jpeg image of the collectible. Maximum size is 40 KB.</p>
+                <input class="form-control-file" type="file" name="pic" id="image" accept="image/jpeg"/>
+            </div>
+            <button type="submit" class="btn btn-light">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/jquery-3.5.1.js"></script>
+<script src="/js/formtypecollectible.js"></script>
+<script src="/js/checkimagesize.js"></script>
+<link rel="stylesheet" href="/css/editcollectible.css"/>

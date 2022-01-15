@@ -1,0 +1,71 @@
+<div class="row justify-content-md-center mt-2">
+    
+    <div class="col col-md-4">
+        {{#each collector}}
+        <h2 class="display-4">{{{username}}}</h2>
+        <h5>collector id: {{{collector_id}}}</h5>
+
+        {{/each}}
+       
+<form action='/collectible/update' id="update_form" method='post' class="form-example">
+                <input type="submit" id="update_collection" class="btn btn-secondary" value="Update Collection">
+                <br>
+                <br>
+                <table class="table table-striped">
+                        <tr>
+                            <th>Collectible id</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Type</th>
+                            <th>Year Released</th>
+                            <th>Squad</th>
+                            <th>Size</th>
+                            <th>Date added to database</th>
+                            <th>Have</th>
+                            <th>Want</th>
+                            <th>For Trade</th>
+                        </tr>
+                        {{#each collectionHas}}
+                            <tr>
+                                <td>{{{collectible_id}}}</td>
+                                <td style="word-break:break-word-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
+                                <td>{{{type_name}}}</td>
+                                <td>{{{year_released}}}</td>    
+                                <td>{{{squad}}}</td>          
+                                <td>{{{sizes}}}</td>
+                                <td>{{{created_at}}}</td>
+                                    <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                                <td>
+                                    <label for="has_quantity"><i class="fas fa-check"></i> :</label>
+                                    <input type="number" step="1" min="0" max="20"
+                                    name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                </td>
+                                <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
+                                    <input type="number" step="1" min="0" max="20"
+                                    name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                </td>
+                                <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                                    <input type="number" step="1" min="0" max="20"
+                                    name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                </td>
+                            </tr>
+                        {{/each}}
+                </table>
+            </form>
+      
+  
+</div>
+
+<div class="pagination">
+  <a>page</a>
+  <a href="/profile/has1?page=1">1</a>
+  <a href="/profile/has1?page=2">2</a>
+  <a href="/profile/has1?page=3">3</a>
+  <a href="/profile/has1?page=4">4</a>
+
+<link rel="stylesheet" href="/css/has1.css"/>
+<link rel="stylesheet" href="/css/loading.css"/>
+<script src="/js/loading.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> 

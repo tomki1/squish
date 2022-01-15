@@ -1,0 +1,188 @@
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-8">
+
+        <div>
+            <div id="pages" style="display: none;">{{{pages}}}</div>
+            {{#if search}}
+            <div id="searchterm" style="display: none;">{{{name}}}</div>
+            <h2>Search Results for "{{{name}}}"</h2>
+            {{else}}
+            <h2 class="display-4">Collectibles</h2>
+            {{!-- <h6>Filter</h6>
+                <form method="GET" action="/collectible" id="filter-form">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="plushFilter" name="filter" value="Plush">
+                        <label class="form-check-label" for="plushFilter">Plush</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="pinFilter" name="filter" value="Pin">
+                        <label class="form-check-label" for="pinFilter">Pin</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="figureFilter" name="filter" value="Figure">
+                        <label class="form-check-label" for="figureFilter">Figure</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="accessoryFilter" name="filter" value="Accessory">
+                        <label class="form-check-label" for="accessoryFilter">Accessory</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="otherFilter" name="filter" value="Other">
+                        <label class="form-check-label" for="otherFilter">Other</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a class="btn btn-light" href="/collectible" role="button">Reset</a>
+                </form> --}}
+            </div>
+            {{/if}}
+            {{#if message}}
+                <div class="alert {{messageClass}}" role="alert">
+                    {{message}}
+                </div>
+            {{/if}}
+            <br>
+            <p>Click on the table headers to sort the collectibles by the clicked column. You may sort by collectible id, name, type, year, squad, size and date added.</p>
+            <div class="pagination" id="pagination"></div>
+            <div class="row justify-content-md-center mt-2">
+            </div>
+            {{#if isLoggedIn}}
+                        <p>Please click "update collection" or press enter in a quantity field before moving on to the next page or your changes will not be saved.</p>
+
+                <form action='/collectible/update' id="update_form" method='post' class="form-example">
+                    <input type="submit" id="update_collection" class="btn btn-secondary" value="Update Collection">
+                    <br>
+                    <br>
+                    <table class="table table-striped">
+                            <tr>
+                                <th>Collectible id</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Type</th>
+                                <th>Year Released</th>
+                                <th>Squad</th>
+                                <th>Size</th>
+                                <th>Collector Number</th>
+                                <th>Color</th>
+                                <th>Squishdate</th>
+                                <th>Description</th>
+                                <th>Date added to database</th>
+                                <th>Have</th>
+                                <th>Want</th>
+                                <th>For Trade</th>
+                            </tr>
+                            {{#each collectibleRow}}
+                                <tr>
+                                    <td>{{{collectible_id}}}</td>
+                                    <td style="word-break:break-word-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                                    <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
+                                    <td>{{{type_name}}}</td>
+                                    <td>{{{year_released}}}</td>    
+                                    <td>{{{squad}}}</td>          
+                                    <td>{{{sizes}}}</td>
+                                    <td>{{{created_at}}}</td>
+                                        <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                                    <td>
+                                        <label for="has_quantity"><i class="fas fa-check"></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                    <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                    <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            {{#each collectibleNoRow}}
+                                <tr>
+                                    <td>{{{collectible_id}}}</td>
+                                    <td style="word-break:break-word-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                                    <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
+                                    <td>{{{type_name}}}</td>
+                                    <td>{{{year_released}}}</td>    
+                                    <td>{{{squad}}}</td>          
+                                    <td>{{{sizes}}}</td> 
+                                    <td>{{{collector_number}}}</td> 
+                                    <td>{{{color}}}</td> 
+                                    <td>{{{squishdate}}}</td> 
+                                    <td>{{{description}}}</td>                                                                         
+                                    <td>{{{created_at}}}</td>
+                                        <input type="hidden" name="collectible_id2[]" id="collectible_id2" value="{{{collectible_id}}}" readonly>
+                                    <td>
+                                        <label for="has_quantity"><i class="fas fa-check"></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="has_quantity2[]" id="qa" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                    <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="wants_quantity2[]" id="qb" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                    <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                                        <input type="number" step="1" min="0" max="20"
+                                        name="willing_to_trade_quantity2[]" id="qc" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                    </table>
+                </form>
+
+                <p>Please click "update collection" or press enter in a quantity field before moving on to the next page or your changes will not be saved.</p>
+            {{else}}
+                <table class="table table-striped">
+                        <tr>
+                            <th>Collectible id</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Type</th>
+                            <th>Year Released</th>
+                            <th>Squad</th>
+                            <th>Size</th>
+                            <th>Collector Number</th>
+                            <th>Color</th>
+                            <th>Squishdate</th>
+                            <th>Description</th>                            
+                            <th>Date added to database</th>
+                        </tr>
+                        {{#each collectible}}
+                            <tr>
+                                <td>{{{collectible_id}}}</td>
+                                <td style="word-break:break-word-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
+                                <td>{{{type_name}}}</td>
+                                <td>{{{year_released}}}</td>    
+                                <td>{{{squad}}}</td>          
+                                <td>{{{sizes}}}</td>    
+                                <td>{{{collector_number}}}</td> 
+                                <td>{{{color}}}</td> 
+                                <td>{{{squishdate}}}</td> 
+                                <td>{{{description}}}</td>                                             
+                                <td>{{{created_at}}}</td>
+                            </tr>
+                        {{/each}}
+                </table>
+            {{/if}}
+            <div class="pagination" id="pagination1"></div>
+        </div>
+        <div>
+        </div>
+
+
+    
+    </div>
+</div>
+
+<div class="row justify-content-md-center mt-2">
+<br>
+<br>
+
+</div>
+  
+<link rel="stylesheet" href="/css/collectible.css"/>
+<link rel="stylesheet" href="/css/loading.css"/>
+<script src="/js/sortTable.js"></script>
+<script src="/js/loading.js"></script>
+<script src="/js/pagination.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
